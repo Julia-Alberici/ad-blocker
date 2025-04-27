@@ -1,5 +1,5 @@
-chrome.webNavigation.onComitted.addListener(function (tab) {
-    if (tab.frameId == 0) {
+chrome.webNavigation.onCommitted.addListener(function (details) {
+    if (details.frameId == 0) {
         chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
             let url = tabs[0].url;
             let domain = getDomain(url)
@@ -8,7 +8,7 @@ chrome.webNavigation.onComitted.addListener(function (tab) {
                 if (domain.length < 1 || domain === null || domain === undefined) {
                     return;
                 } else if (domain == "linkedin.com") {
-                    runLinkedinScript();
+                    runLinkedinScript(details.tabId);
                     return;
                 }
             } catch (e) {
@@ -18,11 +18,11 @@ chrome.webNavigation.onComitted.addListener(function (tab) {
     }
 })
 
-function runLinkedinScript() {
-    chrome.tabs.executeScript({
-        file: 'linkedin.js'
+function runLinkedinScript(tabId) {
+    chrome.scripting.executeScript({
+        target: { tabId: tabId },
+        files: ['linkedin.js']
     });
-    return true;
 }
 
 function getDomain(url) {

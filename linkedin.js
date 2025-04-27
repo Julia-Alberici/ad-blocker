@@ -1,4 +1,5 @@
-import { AD_CARD_CLASS, AD_TEXT_BY_LANGUAGE_MAP } from "./linkedin.const";
+const AD_CARD_CLASS = ".feed-shared-updated-v2"
+const AD_TEXT_BY_LANGUAGE_MAP = {"en": "Promoted", "es": "Promovido", "fr": "Promu", "de": "Gesponsert", "it": "Promosso", "ja": "プロモーション", "ko": "홍보", "pt": "Promovido", "ru": "Рекламируется", "zh": "推广"}
 
 function removeAds() {
     let spans = document.getElementsByTagName("span");
